@@ -1,34 +1,91 @@
 import React, { Component } from 'react';
-import Navbar from "./Navbar";
 import './RecipeApp.css'
 
 class RecipeApp extends Component {
     constructor(props) {
       super(props);
+      this.onSave = this.onSave.bind(this);
+      this.onDelete = this.onDelete.bind(this);
       this.state = {
         recipes: [
           {
             id: 0,
             title: "Spaghetti",
-            ingredients: ["pasta", "spaghetti noodles"],
-            img: "spaghetti.jpg"
+            ingredients: ["pasta", "spaghetti sauce"],
+          },
+          {
+            id: 1,
+            title: "PB&J Sandwiches",
+            ingredients: ["Bread", "Peanut Butter", "Jelly"],
           }
         ],
-        nextRecipeId: 3,
-        showForm: true
+        nextRecipeId: 2     
       }
-      
-      this.handleSave = this.handleSave.bind(this);
-      this.onDelete = this.onDelete.bind(this);
     }
     
-    handleSave(recipe) {
-      this.setState((prevState, props) => {
+ //LocalStorage:
+  componentDidMount() {
+    // for all items in state
+    for (let key in this.state) {
+        // if the key exists in localStorage
+        if (localStorage.hasOwnProperty(key)) {
+          // get the key's value from localStorage
+          let value = localStorage.getItem(key);
+  
+          // parse the localStorage string and setState
+          try {
+            value = JSON.parse(value);
+            this.setState({ [key]: value });
+          } catch (e) {
+            // handle empty string
+            this.setState({ [key]: value });
+          }
+        }
+      }
+
+    // add event listener to save state to localStorage
+    // when user leaves/refreshes the page
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+
+    // saves if component has a chance to unmount
+    this.saveStateToLocalStorage();
+  }
+
+
+  saveStateToLocalStorage() {
+    // for every item in React state
+    for (let key in this.state) {
+      // save to localStorage
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    }
+  }
+
+  updateInput(key, value) {
+    // update react state
+    this.setState({ [key]: value });
+
+  }
+
+
+
+
+    onSave(recipe) {
+      this.setState((prevState) => {
         const newRecipe = {...recipe, id: this.state.nextRecipeId};
         return {
           nextRecipeId: prevState.nextRecipeId + 1,
           recipes: [...this.state.recipes, newRecipe],
-          showForm: true
+         
         }
       });
     }
@@ -39,28 +96,32 @@ class RecipeApp extends Component {
     }
     
     render() {
-      const {showForm} = this.state;
+      
       return (
         <div className="App">
-        <Navbar onNewRecipe={() => this.setState({showForm: true})} />
-          <h3>New Recipe</h3>
-          { showForm ?
-              <RecipeInput 
-                onSave={this.handleSave}
-                //onClose={() => this.setState({showForm: false})}  
-              /> :
-              null }
-          <RecipeList onDelete={this.onDelete} recipes={this.state.recipes} />
-        </div>
+         <hr />
+         <div className="container">
+          <h3>Recipes</h3>
+          <RecipeList onDelete={this.onDelete} 
+          recipes={this.state.recipes} />
+          <hr />
+          <h3>Add a recipe:</h3>
+          <RecipeInput onSave={this.onSave} /> 
+          
+
+        </div></div>
       );
     }
+
   }
   
   export default RecipeApp;
 
+
+
 class Recipe extends Component{
     render(){
-        const {title, img, details} = this.props;
+        const {title} = this.props;
         const ingredients = this.props.ingredients.map((ing,index) => ( 
             <li key={index}>{ing}</li>
         ))
@@ -68,7 +129,7 @@ class Recipe extends Component{
             
             <div>{title}</div>
             <ul>{ingredients}</ul>
-            <p>{details}</p>
+           
         </div>)
     }
 }
@@ -84,9 +145,7 @@ class RecipeInput extends Component {
       super(props);
       this.state = {
         title: '',
-        instructions: "",
         ingredients: [''],
-        img: ''
       };
       
       this.handleChange = this.handleChange.bind(this);
@@ -117,15 +176,13 @@ class RecipeInput extends Component {
       this.props.onSave({...this.state});
       this.setState({
         title: '',
-        instructions: '',
         ingredients: [''],
-        img: ''
       })
     }
     
     render() {
-      const {title, instructions, img, ingredients} = this.state;
-      const {onClose} = this.props;
+      const {title, ingredients} = this.state;
+      //const {onClose} = this.props;
       let inputs = ingredients.map((ing, i) => (
         <div
           className="recipe-form-line"
@@ -136,7 +193,7 @@ class RecipeInput extends Component {
               type="text"
               name={`ingredient-${i}`}
               value={ing}
-              size={45}
+              
               autoComplete="off"
               placeholder=" Ingredient"
               onChange={this.handleChangeIng} />
@@ -149,18 +206,18 @@ class RecipeInput extends Component {
           <form className='recipe-form' onSubmit={this.handleSubmit}>
 
             <div className='recipe-form-line'>
-              <label htmlFor='recipe-title-input'>Title</label>
+              <label htmlFor='recipe-title-input'>title:</label>
+              <br />
               <input
                 id='recipe-title-input'
                 key='title'
                 name='title'
                 type='text'
                 value={title}
-                size={42}
                 autoComplete="off"
                 onChange={this.handleChange}/>
             </div>
-
+            List ingredents:
             {inputs}
             <button
               type="button"
@@ -169,16 +226,15 @@ class RecipeInput extends Component {
             >
               +
             </button>
-            <div className='recipe-form-line'>
-
-            </div>
+ 
             <button
               type="submit"
               className="buttons"
               style={{alignSelf: 'flex-end', marginRight: 0}}
             >
-              SAVE
+              save recipe
             </button>
+
           </form>
         </div>
       )

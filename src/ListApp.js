@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from "./Navbar";
+import './RecipeApp.css'
 
 class ListApp extends Component {
   constructor(props) {
@@ -7,38 +7,54 @@ class ListApp extends Component {
     this.onAdd = this.onAdd.bind(this);
     this.onRemove = this.onRemove.bind(this);
     this.state = {
-      items: []
+      items: [
+        {
+          id: 0,
+          ingredient: "Cheese",
+          section: "Refrigerated"
+        }
+      ],
+      nextItemId: 2
     };
   }
 
   onAdd(item) {
-    if (!item) {
-      return 'Type an item and hit Enter';
-    } else if (this.state.items.indexOf(item) > -1) {
-      return 'This item is already on the list';
-    }
+    this.setState((prevState) => {
+      const  newItem = {...item, id: this.state.nextItemId}
+      return{
+        nextItemId: prevState.nextItemId +1,
+        items: [...this.state.items, newItem],
+      }
+    });
 
-    this.setState((prevState) => ({
-      items: prevState.items.concat(item)
-    }));
+    // if (!item) {
+    //   return 'Type an item and hit Enter';
+    // } else if (this.state.items.indexOf(item) > -1) {
+    //   return 'This item is already on the list';
+    // }
+
   }
+
+
   onRemove(itemToRemove) {
-    this.setState((prevState) => ({
-      items: prevState.items.filter((item) => itemToRemove !== item)
-    }));
+    // this.setState((prevState) => ({
+    //   items: prevState.items.filter((item) => itemToRemove !== item)
+    // }));
+
+    // const items = this.state.items.filter(r => r.id !== id);
+    // this.setState({items});
   }
 
   render() {
     const subtitle = 'Add to List';
 
     return (<div>
-      <Navbar />
+      
       <div className="container">
-        <Header subtitle={subtitle} />
+        
         <AddItem onAdd={this.onAdd} />
-        <Items
-          items={this.state.items}
-          onRemove={this.onRemove}
+        <Items onRemove={this.onRemove}
+          items={this.state.items}    
         />
 
       </div>

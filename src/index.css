@@ -201,9 +201,11 @@ span h3{
   border: none;
 }
 
-select{
-  font-size: 2.5rem;
-  margin-left: 1%;
+select {
+  font-size: 2rem;
+  padding: 0.2rem;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 /* Note editor */
@@ -391,6 +393,8 @@ background: white;
   font-weight: 300; */
   align-items: baseline;
   justify-content: space-between; 
+  padding-left: 10px;
+  
 }
 
 /* .list-item__container > *:first-child {
