@@ -103,17 +103,13 @@ class RecipeApp extends Component {
         <div className="App">
 
          <div className="container">
-          <h3>Recipes</h3>
           
-          <RecipeList onDelete={this.onDelete} 
-          recipes={this.state.recipes} />
           
-          <hr />
           <h3>Add a recipe:</h3>
-          <RecipeInput onSave={this.onSave} /> 
+          
           <RecipeList onDelete={this.onDelete} 
               recipes={this.state.recipes} />
-
+              <RecipeInput onSave={this.onSave} /> 
         </div></div>
       );
     }
@@ -260,7 +256,7 @@ class RecipeInput extends Component {
       
       return (
         <div className="recipe-list">
-          {recipes}
+        {recipes}
          
         </div>
       )

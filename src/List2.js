@@ -168,7 +168,12 @@ class List2App extends Component {
             value={this.state.newSection}
             onChange={e => this.updateInput("newSection", e.target.value)}
             />
-
+            <button
+              onClick={() => this.addItem()}
+              //disabled={!this.state.newItem.length}
+            >
+              &#43; Add
+            </button>
             <br />
             {console.log(this.state.list.length)}
             {this.state.list.length} items on list
@@ -178,16 +183,7 @@ class List2App extends Component {
             onChange={e => this.updateInput("newSection", e.target.value)}
               {sectionOptions}
             </select>
-            
-
-  
-
-            <button
-              onClick={() => this.addItem()}
-              //disabled={!this.state.newItem.length}
-            >
-              &#43; Add
-            </button>
+          
             
           </form>
           <br /> <br />
