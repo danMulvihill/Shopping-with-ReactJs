@@ -111,18 +111,18 @@ class List2App extends Component {
 
   }
 
-  handleSubmit(e){
-    if(this.refs.title.value===""){
-      alert('missing data')
-    }else{
-      this.setState({list:{
-        id: 1 + Math.random(),
-        value: this.refs.title.value,
-        quantity: this.refs.quantity.value,
-        section: this.refs.section.value
-      }})
-    }
-  }
+  // handleSubmit(e){
+  //   if(this.refs.title.value===""){
+  //     alert('missing data')
+  //   }else{
+  //     this.setState({list:{
+  //       id: 1 + Math.random(),
+  //       value: this.refs.title.value,
+  //       quantity: this.refs.quantity.value,
+  //       section: this.refs.section.value
+  //     }})
+  //   }
+  // }
 
   deleteItem(id) {
     // copy current list of items
@@ -156,14 +156,14 @@ class List2App extends Component {
               onChange={e=>this.updateInput("newQuantity", e.target.value)}
             />
             <input
-              type="text" ref="value"
+              type="text" 
               placeholder="enter items here"
               value={this.state.newItem}
               onChange={e => this.updateInput("newItem", e.target.value)}
             />
 
             <input
-            type="text" ref="section"
+            type="text" 
             placeholder="enter section here"
             value={this.state.newSection}
             onChange={e => this.updateInput("newSection", e.target.value)}
@@ -174,7 +174,7 @@ class List2App extends Component {
             {this.state.list.length} items on list
             <br />
 
-            <select ref="section">
+            <select >
             onChange={e => this.updateInput("newSection", e.target.value)}
               {sectionOptions}
             </select>
