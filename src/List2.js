@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import './RecipeApp.css'
-
+import './styles/RecipeApp.css'
 
 
 class List2App extends Component {
+
+  static defaultProps = {
+    sections: ["Produce", "Refrigerated", "Frozen", "Pharma", "Other Food", "Other items (not food)"]
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +15,13 @@ class List2App extends Component {
           { 
             id: 0,
             ingredient: 'Eggs',
+            quantity: 1,
             section: 'Refrigerated'
           },
       ],
-      newItem: ""
+      newItem: "",
+      newQuantity: 1,
+      newSection: ''
     };
   }
 
@@ -31,6 +38,7 @@ class List2App extends Component {
           try {
             value = JSON.parse(value);
             this.setState({ [key]: value });
+            
           } catch (e) {
             // handle empty string
             this.setState({ [key]: value });
@@ -73,24 +81,47 @@ class List2App extends Component {
 
 
   addItem() {
+    
     // create a new item
+    console.log(" newSection?:"+ this.state.newQuantity)
     const newItem = {
       id: 1 + Math.random(),
-      value: this.state.newItem.slice()
+      value: this.state.newItem.slice(),
+      quantity: this.state.newQuantity.slice(),
+      section: this.state.newSection.slice()
     };
+    console.log(" mount value:"+ this.state.newItem)
+    console.log(" mount section:"+ this.state.newSection)
+    
 
     // copy current list of items
     const list = [...this.state.list];
-
+    console.log(this.state.list.length)
+    //console.log("list:"+this.state.list[0].section)
     // add the new item to the list
     list.push(newItem);
 
     // update state with new list, reset the new item input
     this.setState({
       list,
-      newItem: ""
+      newItem: "",
+      newQuantity: "1",
+      newSection: ""
     });
 
+  }
+
+  handleSubmit(e){
+    if(this.refs.title.value===""){
+      alert('missing data')
+    }else{
+      this.setState({list:{
+        id: 1 + Math.random(),
+        value: this.refs.title.value,
+        quantity: this.refs.quantity.value,
+        section: this.refs.section.value
+      }})
+    }
   }
 
   deleteItem(id) {
@@ -104,51 +135,80 @@ class List2App extends Component {
   }
 
 
+
   render() {
+    let sectionOptions = this.props.sections.map(section =>{
+      return <option key={section} value="section">{section} </option> 
+    })   
     return (
       <div className="App">
-       
-          <hr />
         
         <div className="container">
           <h3>Add Groceries Here</h3>
           <br />
-          <input
-            type="text"
-            placeholder="ingredient goes here"
-            value={this.state.newItem}
-            onChange={e => this.updateInput("newItem", e.target.value)}
-          />
+          <form>
+            <input
+              type = "number" ref="quantity"
+              min = "1"
+              class = "num-input"
+              placeholder = "#"
+              value={this.state.newQuantity}
+              onChange={e=>this.updateInput("newQuantity", e.target.value)}
+            />
+            <input
+              type="text" ref="value"
+              placeholder="enter items here"
+              value={this.state.newItem}
+              onChange={e => this.updateInput("newItem", e.target.value)}
+            />
 
-          <select id="section-pick" name="section-pick"
-          onChange={e=> this.updateInput("newSection", e.target.value)}
-          >
-            <option value={this.state.newSection}>Produce</option>
-            <option value={this.state.newSection}>Refrigerated</option>
-            <option value={this.state.newSection}>Frozen</option>
-            <option value={this.state.newSection}>Pharma</option>
-            <option value={this.state.newSection} checked >Other</option>
-            <option value={this.state.newSection}>Nonfood</option>
-          </select>
-          <button
-            onClick={() => this.addItem()}
-            //disabled={!this.state.newItem.length}
-          >
-            &#43; Add
-          </button>
+            <input
+            type="text" ref="section"
+            placeholder="enter section here"
+            value={this.state.newSection}
+            onChange={e => this.updateInput("newSection", e.target.value)}
+            />
+
+            <br />
+            {console.log(this.state.list.length)}
+            {this.state.list.length} items on list
+            <br />
+
+            <select ref="section">
+            onChange={e => this.updateInput("newSection", e.target.value)}
+              {sectionOptions}
+            </select>
+            
+
+  
+
+            <button
+              onClick={() => this.addItem()}
+              //disabled={!this.state.newItem.length}
+            >
+              &#43; Add
+            </button>
+            
+          </form>
           <br /> <br />
           <ul>
             {this.state.list.map(item => {
               return (
                 <li key={item.id} className="list-item">
                 <div className="list-item__container">
-                   {item.value}
-                  <button 
-                    className = "button x-button"   
-                    onClick={() => this.deleteItem(item.id)}>
-                    X
-                  </button>
+                  <div> 
+                   <span className="quantity-diplay">{item.quantity} </span>  
+                     | {item.value}
+                  </div> 
+                  <div>   
+                    <span className="section-dislay">{item.section}</span>
+                    <button 
+                      className = "button x-button"   
+                      onClick={() => this.deleteItem(item.id)}>
+                      X
+                    </button>
                   </div>
+                </div>
                 </li>
               );
             })}
@@ -160,3 +220,64 @@ class List2App extends Component {
 }
 
 export default List2App;
+
+
+/*
+
+          <div class="checkbox-area">
+            <label class="container-radio">Produce
+                <input type="radio" id ="add" name="foodtype"
+                value={this.state.newItem} 
+                 />
+            <span class="checkmark-radio"></span>
+            </label>
+            <label class="container-radio">Refrigerated
+            <input type="radio" id ="add" name ="Refrigerated" 
+                value={this.state.newItem} />
+            <span class="checkmark-radio"></span>
+            </label>
+            <label class="container-radio">Frozen
+            <input type="radio"id="add" name="Frozen" 
+                value={this.state.newItem} />
+            <span class="checkmark-radio"></span>
+            </label>
+            <label class="container-radio">Pharmaceuticals
+            <input type="radio"id="add" name="Pharma" 
+                value={this.state.newItem} />
+            <span class="checkmark-radio"></span>
+            </label>
+            <label class="container-radio">Other Food (food at room temp)
+            <input type="radio" id ="add" name="foodtype" 
+                value={this.state.newItem} />
+            <span class="checkmark-radio"></span>
+            </label>
+            <label class="container-radio">Other items (not food)
+             <input type="radio" id ="add" name="foodtype" 
+                value={this.state.newItem} />
+                <span class="checkmark-radio"></span>
+            </label>
+            onChange={e => this.updateInput("newItem", e.target.value)}
+          </div>
+
+
+
+*/
+
+
+/*
+          <select 
+          id="section-pick" 
+          name="section-pick"
+          onChange={e=> this.updateInput("newSection", e.target.value)}
+          >
+          <option value={this.state.newSection}>Produce</option>
+          <option value={this.state.newSection}>Refrigerated</option>
+          <option value={this.state.newSection}>Frozen</option>
+          <option value={this.state.newSection}>Pharma</option>
+          <option value={this.state.newSection} checked >Other</option>
+          <option value={this.state.newSection}>Nonfood</option>
+          </select>
+
+
+
+*/

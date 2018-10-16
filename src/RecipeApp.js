@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './RecipeApp.css'
+
+import './styles/RecipeApp.css'
 
 class RecipeApp extends Component {
     constructor(props) {
@@ -96,18 +97,22 @@ class RecipeApp extends Component {
     }
     
     render() {
-      
+      // console.log(this.props.upRecipes.length)
       return (
+        
         <div className="App">
-         <hr />
+
          <div className="container">
           <h3>Recipes</h3>
+          
           <RecipeList onDelete={this.onDelete} 
           recipes={this.state.recipes} />
+          
           <hr />
           <h3>Add a recipe:</h3>
           <RecipeInput onSave={this.onSave} /> 
-          
+          <RecipeList onDelete={this.onDelete} 
+              recipes={this.state.recipes} />
 
         </div></div>
       );
@@ -121,7 +126,7 @@ class RecipeApp extends Component {
 
 class Recipe extends Component{
     render(){
-        const {title} = this.props;
+        const {title, id, onDelete} = this.props;
         const ingredients = this.props.ingredients.map((ing,index) => ( 
             <li key={index}>{ing}</li>
         ))
@@ -129,7 +134,7 @@ class Recipe extends Component{
             
             <div>{title}</div>
             <ul>{ingredients}</ul>
-           
+            <button type="button" onClick={() => onDelete(id)}>delete recipe</button>
         </div>)
     }
 }
@@ -247,6 +252,7 @@ class RecipeInput extends Component {
 
     
     render() {
+      console.log("list test:"+this.props.upRecipes)
       const {onDelete} = this.props;
       const recipes = this.props.recipes.map((r,index) => (
         <Recipe key={r.id} {...r} onDelete={onDelete} />
@@ -255,6 +261,7 @@ class RecipeInput extends Component {
       return (
         <div className="recipe-list">
           {recipes}
+         
         </div>
       )
     
