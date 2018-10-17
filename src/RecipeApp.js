@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import List from './List';
 import './styles/RecipeApp.css'
 
 class RecipeApp extends Component {
@@ -110,6 +110,7 @@ class RecipeApp extends Component {
           <RecipeList onDelete={this.onDelete} 
               recipes={this.state.recipes} />
               <RecipeInput onSave={this.onSave} /> 
+              
         </div></div>
       );
     }
@@ -127,10 +128,11 @@ class Recipe extends Component{
             <li key={index}>{ing}</li>
         ))
         return(<div>
-            
+          <button class="delrec" type="button" onClick={() => onDelete(id)}>delete recipe</button>
             <div>{title}</div>
             <ul>{ingredients}</ul>
-            <button type="button" onClick={() => onDelete(id)}>delete recipe</button>
+           
+            <hr />
         </div>)
     }
 }
