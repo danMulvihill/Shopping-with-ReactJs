@@ -153,7 +153,7 @@ class List2App extends Component {
               class = "num-input"
               placeholder = "#"
               value={this.state.newQuantity}
-              onChange={e=>this.updateInput("newQuantity", e.target.value)}
+              onChange={function(e){ return this.updateInput("newQuantity", e.target.value)}}
             />
             <input
               type="text" 

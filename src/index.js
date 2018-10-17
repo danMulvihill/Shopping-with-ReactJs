@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import Navbar from "./Navbar"
 import RecipeApp from "./RecipeApp";
 import List2App from "./List2";
+import List from "./List";
 import About from "./About";
 import * as serviceWorker from './serviceWorker';
 
@@ -31,6 +32,7 @@ const routes = (
         <Route path="/about" component={About}  exact={true}/>
         <Route path="/recipes" component={RecipeApp} />
         <Route path="/groceries" component={List2App} />
+        <Route path="/list" component={List} />
         <Route component={NotFoundPage} />
       </Switch>
       </div>
