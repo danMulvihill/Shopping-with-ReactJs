@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 
 
 
-class RecipeApp extends Component {
+class ListApp extends Component {
     constructor(props) {
       super(props);
       this.onSave = this.onSave.bind(this);
       this.onDelete = this.onDelete.bind(this);
       this.state = {
-        recipes: [
+        grocs: [
           {
             id: 0,
             title: "Eggs",
@@ -22,7 +22,7 @@ class RecipeApp extends Component {
             ingredients: []
           }
         ],
-        nextRecipeId: 2     
+        nextGrocId: 2     
       }
     }
     
@@ -82,24 +82,24 @@ class RecipeApp extends Component {
 
 
 
-    onSave(recipe) {
+    onSave(grocs) {
       this.setState((prevState) => {
-        const newRecipe = {...recipe, id: this.state.nextRecipeId};
+        const newGroc = {...grocs, id: this.state.nextGrocId};
         return {
-          nextRecipeId: prevState.nextRecipeId + 1,
-          recipes: [...this.state.recipes, newRecipe],
+          nextGrocId: prevState.nextGrocId + 1,
+          grocs: [...this.state.grocs, newGroc],
          
         }
       });
     }
     
     onDelete(id) {
-      const recipes = this.state.recipes.filter(r => r.id !== id);
-      this.setState({recipes});
+      const grocs = this.state.grocs.filter(r => r.id !== id);
+      this.setState({grocs});
     }
     
     render() {
-      // console.log(this.props.upRecipes.length)
+      // console.log(this.props.upGrocs.length)
       return (
         
         <div className="App">
@@ -107,36 +107,46 @@ class RecipeApp extends Component {
          <div className="container">
           
           
-          <h3>Add a recipe:</h3>
+          <h3>List groceries here:</h3>
+          <GrocInput onSave={this.onSave} /> 
+          <GrocList onDelete={this.onDelete} 
+              grocs={this.state.grocs} />
           
-          <RecipeList onDelete={this.onDelete} 
-              recipes={this.state.recipes} />
-              <RecipeInput onSave={this.onSave} /> 
         </div></div>
       );
     }
 
   }
   
-  export default RecipeApp;
+  export default ListApp;
 
 
 
-class Recipe extends Component{
+class Groc extends Component{
     render(){
         const {title, id, section, onDelete} = this.props;
         
-        return(<div>
-            
-            <div>{title} {section}</div>
-            
-            <button type="button" onClick={() => onDelete(id)}>delete recipe</button>
-        </div>)
+        return(<li key={id} className="list-item">
+            <div className="list-item">
+            <div className="list-item__container">
+              <div>
+                {title}
+              </div>
+              <div>
+                <span className="section-display">{section}</span>
+                <button type="button"
+                className = "button x-button" 
+                onClick={() => onDelete(id)}>          
+                X
+                </button>
+               </div>
+            </div>
+        </div></li>)
     }
 }
 
 
-class RecipeInput extends Component {
+class GrocInput extends Component {
     static defaultProps = {
       onClose() {},
       onSave() {}
@@ -146,18 +156,24 @@ class RecipeInput extends Component {
       super(props);
       this.state = {
         title: '',
+        section: '',
         ingredients: [''],
       };
       
       this.handleChange = this.handleChange.bind(this);
       this.handleNewIngredient = this.handleNewIngredient.bind(this);
       this.handleChangeIng = this.handleChangeIng.bind(this);
+      this.handleChangeSec = this.handleChangeSec.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleChange(e) {
       this.setState({[e.target.name]: e.target.value});
     }
+
+    handleChangeSec(e) {
+        this.setState({[e.target.name]: e.target.value});
+      }
     
     handleNewIngredient(e) {
       const {ingredients} = this.state;
@@ -177,12 +193,13 @@ class RecipeInput extends Component {
       this.props.onSave({...this.state});
       this.setState({
         title: '',
+        section: '',
         ingredients: [''],
       })
     }
     
     render() {
-      const {title, ingredients} = this.state;
+      const {title, ingredients, section} = this.state;
       //const {onClose} = this.props;
       let inputs = ingredients.map((ing, i) => (
         <div
@@ -201,13 +218,15 @@ class RecipeInput extends Component {
           </label>
         </div>
       ));
-      
+    //   let sectionOptions = section.map(section =>{
+    //     return <option key={section} value="section">{section} </option> 
+    //   }) 
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
 
             <div className='recipe-form-line'>
-              <label htmlFor='recipe-title-input'>title:</label>
+              <label htmlFor='recipe-title-input'>item:</label>
               <br />
               <input
                 id='recipe-title-input'
@@ -217,24 +236,41 @@ class RecipeInput extends Component {
                 value={title}
                 autoComplete="off"
                 onChange={this.handleChange}/>
+                <br />
+                <label htmlFor='recipe-title-input'> section:</label>
+                <br />
+                <input
+                  id='recipe-section-input'
+                  key='section'
+                  name='section'
+                  type='text'
+                  //value={section}
+                  autoComplete="off"
+                  onChange={this.handleChange}/>
             </div>
-            List ingredents:
-            {inputs}
-            <button
-              type="button"
-              onClick={this.handleNewIngredient}
-              className="buttons"
-            >
-              +
-            </button>
+
  
             <button
               type="submit"
               className="buttons"
               style={{alignSelf: 'flex-end', marginRight: 0}}
             >
-              save recipe
+              add item
             </button>
+            <select 
+            id="section-pick" 
+            name="section-pick"
+            onChange={e=> this.updateInput("newSection", e.target.value)}
+            >
+            <option value="">Produce</option>
+            <option value="">Refrigerated</option>
+            <option value="">Frozen</option>
+            <option value=''>Pharma</option>
+            <option value='' checked >Other</option>
+            <option value=''>Nonfood</option>
+            </select>
+
+          
 
           </form>
         </div>
@@ -244,21 +280,23 @@ class RecipeInput extends Component {
   
   
 
-  class RecipeList extends Component {
+  class GrocList extends Component {
 
     
     render() {
-      console.log("list test:"+this.props.upRecipes)
+      console.log("list test:"+this.props.upGrocs)
       const {onDelete} = this.props;
-      const recipes = this.props.recipes.map((r,index) => (
-        <Recipe key={r.id} {...r} onDelete={onDelete} />
+      
+      const grocs = this.props.grocs.map((r,index) => (
+        <Groc key={r.id} {...r} onDelete={onDelete} />
+      
       ));
       
       return (
-        <div className="recipe-list">
-        {recipes}
+        <ul>
+        {grocs}
          
-        </div>
+        </ul>
       )
     
     }

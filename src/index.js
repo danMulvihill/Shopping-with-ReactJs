@@ -31,7 +31,7 @@ const routes = (
      <Switch>
         <Route path="/about" component={About}  exact={true}/>
         <Route path="/recipes" component={RecipeApp} />
-        <Route path="/groceries" component={List2App} />
+        <Route path="/groceries" component={List} />
         <Route path="/list" component={List} />
         <Route component={NotFoundPage} />
       </Switch>
