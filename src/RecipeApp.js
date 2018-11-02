@@ -128,7 +128,7 @@ class Recipe extends Component{
             <li key={index}>{ing}</li>
         ))
         return(<div>
-          <button class="delrec" type="button" onClick={() => onDelete(id)}>delete recipe</button>
+          <button className="delrec" type="button" onClick={() => onDelete(id)}>delete recipe</button>
             <div>{title}</div>
             <ul>{ingredients}</ul>
            

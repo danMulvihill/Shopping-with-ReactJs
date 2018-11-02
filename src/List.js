@@ -1,28 +1,30 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux';
+import Select from 'react-select';
 
-const store = createStore((state={count:0}) =>{ return state; })
+
+const store = createStore((state={count:0}) =>{ return state; });
+
+
 
 console.log(store.getState());
 
 class ListApp extends Component {
     constructor(props) {
       super(props);
-      this.onSave = this.onSave.bind(this);
-      this.onDelete = this.onDelete.bind(this);
+      //this.onSave = this.onSave.bind(this);
+      //this.onDelete = this.onDelete.bind(this);
       this.state = {
         grocs: [
           {
             id: 0,
             title: "Eggs",
-            section: "Refrigerated",
-            ingredients: []
+            section: "Refrigerated"
           },
           {
             id: 1,
             title: "Bananas",
-            section: "Produce",
-            ingredients: []
+            section: "Produce"
           }
         ],
         nextGrocId: 2     
@@ -85,7 +87,7 @@ class ListApp extends Component {
 
 
 
-    onSave(grocs) {
+    onSave = (grocs) => {
       this.setState((prevState) => {
         const newGroc = {...grocs, id: this.state.nextGrocId};
         return {
@@ -96,7 +98,7 @@ class ListApp extends Component {
       });
     }
     
-    onDelete(id) {
+    onDelete = (id) => {
       const grocs = this.state.grocs.filter(r => r.id !== id);
       this.setState({grocs});
     }
@@ -125,28 +127,7 @@ class ListApp extends Component {
 
 
 
-class Groc extends Component{
-    render(){
-        const {title, id, section, onDelete} = this.props;
-        
-        return(<li key={id} className="list-item">
-            <div className="list-item">
-            <div className="list-item__container">
-              <div>
-                {title}
-              </div>
-              <div>
-                <span className="section-display">{section}</span>
-                <button type="button"
-                className = "button x-button" 
-                onClick={() => onDelete(id)}>          
-                X
-                </button>
-               </div>
-            </div>
-        </div></li>)
-    }
-}
+
 
 
 class GrocInput extends Component {
@@ -155,75 +136,45 @@ class GrocInput extends Component {
       onSave() {}
     }
     
-    constructor(props) {
-      super(props);
-      this.state = {
-        title: '',
-        section: '',
-        ingredients: [''],
-      };
-      
-      this.handleChange = this.handleChange.bind(this);
-      this.handleNewIngredient = this.handleNewIngredient.bind(this);
-      this.handleChangeIng = this.handleChangeIng.bind(this);
-      this.handleChangeSec = this.handleChangeSec.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    state = {
+      title: ""
+    };
     
-    handleChange(e) {
+    handleChange = (e) => {
       this.setState({[e.target.name]: e.target.value});
     }
 
-    handleChangeSec(e) {
-        this.setState({[e.target.name]: e.target.value});
+    handleChangeSec = (selectedOption) => {
+        //this.setState({[e.target.name]: e.target.value});
+        this.setState({selectedOption: selectedOption.label});
+        console.log(`Option picked: `, selectedOption.value)
+        
       }
-    
-    handleNewIngredient(e) {
-      const {ingredients} = this.state;
-      this.setState({ingredients: [...ingredients, '']});
+
+    getOptions =() => {
+      return [
+        { value: 'produce', label: 'Produce' },
+        { value: 'frozen', label: 'Frozen' },
+        { value: 'refrigerated', label: 'Refrigerated' },
+        { value: 'otherFood', label: "Other Food"},
+        { value: 'drugs', label: "Drugs"},
+        { value: 'notFood', label: "Other/Not Food"}
+
+      ]
     }
     
-    handleChangeIng(e) {
-      const index = Number(e.target.name.split('-')[1]);
-      const ingredients = this.state.ingredients.map((ing, i) => (
-        i === index ? e.target.value : ing
-      ));
-      this.setState({ingredients});
-    }
-    
-    handleSubmit(e) {
+    handleSubmit = (e) => {
       e.preventDefault();
       this.props.onSave({...this.state});
       this.setState({
         title: '',
-        section: '',
-        ingredients: [''],
+        section: ''
       })
     }
     
     render() {
-      const {title, ingredients, section} = this.state;
-      //const {onClose} = this.props;
-      let inputs = ingredients.map((ing, i) => (
-        <div
-          className="recipe-form-line"
-          key={`ingredient-${i}`}
-        >
-          <label>{i+1}.
-            <input
-              type="text"
-              name={`ingredient-${i}`}
-              value={ing}
-              
-              autoComplete="off"
-              placeholder=" Ingredient"
-              onChange={this.handleChangeIng} />
-          </label>
-        </div>
-      ));
-    //   let sectionOptions = section.map(section =>{
-    //     return <option key={section} value="section">{section} </option> 
-    //   }) 
+      const {title, selectedOption} = this.state;
+
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
@@ -241,18 +192,19 @@ class GrocInput extends Component {
                 onChange={this.handleChange}/>
                 <br />
                 <label htmlFor='recipe-title-input'> section:</label>
-                <br />
-                <input
+                
+                <Select 
                   id='recipe-section-input'
                   key='section'
                   name='section'
-                  type='text'
-                  //value={section}
-                  autoComplete="off"
-                  onChange={this.handleChange}/>
+                  autoComplete="on"
+                  //value={selectedOption}
+                  onChange={this.handleChangeSec}
+                  options={ this.getOptions() }
+                />
             </div>
 
- 
+
             <button
               type="submit"
               className="buttons"
@@ -260,6 +212,9 @@ class GrocInput extends Component {
             >
               add item
             </button>
+
+            <br />
+            Filter by: 
             <select 
             id="section-pick" 
             name="section-pick"
@@ -305,124 +260,28 @@ class GrocInput extends Component {
     }
   }
   
- 
+  class Groc extends Component{
+    render(){
+        const {title, id, section, selectedOption, onDelete} = this.props;
+        // const {value} = this.props.selectedOption;
+        console.log(this.props.selectedOption)
+        return(<li key={id} className="list-item">
+            <div className="list-item">
+            <div className="list-item__container">
+              <div>
+                {title}
+              </div>
+              <div>
+                <span className="section-display">{section||selectedOption}</span>
+                <button type="button"
+                className = "button x-button" 
+                onClick={() => onDelete(id)}>          
+                X
+                </button>
+               </div>
+            </div>
+        </div></li>)
+    }
+}
 
 
-
-// export default class List extends Component {
-
-//     static defaultProps = {
-//         sections: ["Produce", "Refrigerated", "Frozen", "Pharma", "Other Food", "Other items (not food)"]
-//       };
-    
-//       constructor(props) {
-//         super(props);
-//         this.state = {
-//           list: [
-//               { 
-//                 id: 0,
-//                 ingredient: 'Eggs',
-//                 quantity: 1,
-//                 section: 'Refrigerated'
-//               },
-//           ],
-//           newItem: "",
-//           newQuantity: 1,
-//           newSection: ''
-//         };
-//       }
-    
-    
-//       componentDidMount() {
-//         // for all items in state
-//         for (let key in this.state) {
-//             // if the key exists in localStorage
-//             if (localStorage.hasOwnProperty(key)) {
-//               // get the key's value from localStorage
-//               let value = localStorage.getItem(key);
-      
-//               // parse the localStorage string and setState
-//               try {
-//                 value = JSON.parse(value);
-//                 this.setState({ [key]: value });
-                
-//               } catch (e) {
-//                 // handle empty string
-//                 this.setState({ [key]: value });
-//               }
-//             }
-//           }
-    
-//         // add event listener to save state to localStorage
-//         // when user leaves/refreshes the page
-//         window.addEventListener(
-//           "beforeunload",
-//           this.saveStateToLocalStorage.bind(this)
-//         );
-//       }
-    
-//       componentWillUnmount() {
-//         window.removeEventListener(
-//           "beforeunload",
-//           this.saveStateToLocalStorage.bind(this)
-//         );
-    
-//         // saves if component has a chance to unmount
-//         this.saveStateToLocalStorage();
-//       }
-    
-    
-//       saveStateToLocalStorage() {
-//         // for every item in React state
-//         for (let key in this.state) {
-//           // save to localStorage
-//           localStorage.setItem(key, JSON.stringify(this.state[key]));
-//         }
-//       }
-    
-//       updateInput(key, value) {
-//         // update react state
-//         this.setState({ [key]: value });
-    
-//       }
-
-
-
-
-  
-//   render() {
-    
-//     console.log(this.state.list)
-//     let listitems;
-//     if(this.state.list){
-//         listitems = this.state.list.map(l=>{
-//             return <div> 
-//                 {l.quantity} {l.value} {l.section}
-//                 </div>
-//         })
-//     }
-//     return (
-//       <div>
-//         <div className="App">
-//             <div className="container">
-//                 {listitems}
-//             </div>
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-
-// class ListItem extends React.Components{
-//     constructor(props) {
-//         super(props);
-//     }
-//     render(){
-//         return(
-//             <div className="">
-//                   Test
-//             </div>
-//         )
-//     }
-// }

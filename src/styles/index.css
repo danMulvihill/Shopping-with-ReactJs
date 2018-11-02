@@ -474,6 +474,10 @@ justify-content: space-between;
   color: white;
 }
 
+#recipe-section-input{
+  width: 150px;
+}
+
 @media (min-width: 700px){
   .main-container{
       display: flex;

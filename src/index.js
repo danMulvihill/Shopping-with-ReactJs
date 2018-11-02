@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 //import 'bootstrap/dist/css/bootstrap.css'
 import './styles/index.css';
 //import App from './App';
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Navbar from "./Navbar"
 import RecipeApp from "./RecipeApp";
-import List2App from "./List2";
+
 import List from "./List";
 import About from "./About";
 import * as serviceWorker from './serviceWorker';
@@ -15,7 +15,7 @@ const NotFoundPage = () =>(
     <div className="App">
         <div className="containter intro"> 
             <h1>Welcome to Shopping Buddy. </h1>
-            <img src="shop.jpg" />
+            <img src="shop.jpg" alt="Grocery Store" />
             <p>An app for collecting and organizing your favorite recipes
             and pushing them to a sortable shopping list.</p>
         </div>
