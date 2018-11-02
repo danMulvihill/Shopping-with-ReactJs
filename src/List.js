@@ -190,7 +190,8 @@ class GrocInput extends Component {
                 value={title}
                 autoComplete="off"
                 onChange={this.handleChange}/>
-                <br />
+              </div>
+              <div className='recipe-form-line'>
                 <label htmlFor='recipe-title-input'> section:</label>
                 
                 <Select 
@@ -218,7 +219,7 @@ class GrocInput extends Component {
             <select 
             id="section-pick" 
             name="section-pick"
-            onChange={e=> this.updateInput("newSection", e.target.value)}
+            //onChange={e=> this.updateInput("newSection", e.target.value)}
             >
             <option value="">Produce</option>
             <option value="">Refrigerated</option>
