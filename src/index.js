@@ -7,7 +7,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Navbar from "./Navbar"
 import RecipeApp from "./recipes/RecipeApp";
 
-import List from "./groceries/List";
+import List from "./groceries/GrocApp";
 import About from "./About";
 import * as serviceWorker from './serviceWorker';
 
