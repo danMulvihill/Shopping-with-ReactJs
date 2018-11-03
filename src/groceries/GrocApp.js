@@ -31,7 +31,8 @@ class ListApp extends Component {
             section: "Produce"
           }
         ],
-        nextGrocId: 2     
+        nextGrocId: 2,
+        filterChoice: 'All'     
       }
     }
     
@@ -89,8 +90,6 @@ class ListApp extends Component {
   }
 
 
-
-
     onSave = (grocs) => {
       this.setState((prevState) => {
         const newGroc = {...grocs, id: this.state.nextGrocId};
@@ -103,9 +102,27 @@ class ListApp extends Component {
     }
     
     onDelete = (id) => {
-      const grocs = this.state.grocs.filter(r => r.id !== id);
+      const grocs = this.state.grocs.filter(groc => groc.id !== id);
       this.setState({grocs});
     }
+
+
+    handleChangeFilt = (e) => {
+      console.log(e.target.value)
+      //this.props.onChange(e.target.value);
+    }
+
+    changeSection = (newSection) => {
+      console.log("New Section: "+newSection)
+      this.setState({
+        filterChoice: newSection
+      });
+      console.log("Filter Choice: "+this.state.filterChoice)
+      // const grocs = this.state.grocs.filter(groc => groc.selectedOption === newSection);
+      //   this.setState({grocs});
+      
+    }
+    
     
     render() {
       // console.log(this.props.upGrocs.length)
@@ -118,8 +135,23 @@ class ListApp extends Component {
           
           <h3>List groceries here:</h3>
           <GrocInput onSave={this.onSave} /> 
+          
+          Filter by: 
+
+          <select id="filtered-sections" 
+          onChange={e=>this.changeSection(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Produce">Produce</option>
+          <option value="Refrigerated">Refrigerated</option>
+          <option value="Frozen">Frozen</option>
+          <option value="Other Food">Other Food</option>
+          <option value="Drugs">Drugs</option>
+          <option value="Other/Not Food">Other/Not Food</option>
+        </select>
+    
+          
           <GrocList onDelete={this.onDelete} 
-              grocs={this.state.grocs} />
+              grocs={this.state.grocs} filterChoice={this.state.filterChoice} />
           
         </div></div>
       );

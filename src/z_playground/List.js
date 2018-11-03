@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux';
 import Select from 'react-select';
-import Groc from './GrocListItem.js'
+
 
 
 const store = createStore((state={count:0}) =>{ return state; });
@@ -241,27 +241,3 @@ class GrocInput extends Component {
   }
   
   
-
-  class GrocList extends Component {
-
-    
-    render() {
-      console.log("list test:"+this.props.upGrocs)
-      const {onDelete} = this.props;
-      
-      const grocs = this.props.grocs.map((r,index) => (
-        <Groc key={r.id} {...r} onDelete={onDelete} />
-      
-      ));
-      
-      return (
-        <ul>
-        {grocs}
-         
-        </ul>
-      )
-    
-    }
-  }
-  
-

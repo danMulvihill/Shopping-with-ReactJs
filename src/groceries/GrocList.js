@@ -6,11 +6,11 @@ import Groc from "./GrocListItem"
 
     
     render() {
-      console.log("list test:"+this.props.upGrocs)
+      //console.log(this.props.filterChoice)
       const {onDelete} = this.props;
       
-      const grocs = this.props.grocs.map((r,index) => (
-        <Groc key={r.id} {...r} onDelete={onDelete} />
+      const grocs = this.props.grocs.map((groc,index) => (
+        <Groc key={groc.id} {...groc} onDelete={onDelete} filterChoice = {this.props.filterChoice} />
       
       ));
       

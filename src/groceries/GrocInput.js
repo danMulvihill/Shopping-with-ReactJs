@@ -26,12 +26,12 @@ export default class GrocInput extends Component {
 
     getOptions =() => {
       return [
-        { value: 'produce', label: 'Produce' },
-        { value: 'frozen', label: 'Frozen' },
-        { value: 'refrigerated', label: 'Refrigerated' },
-        { value: 'otherFood', label: "Other Food"},
-        { value: 'drugs', label: "Drugs"},
-        { value: 'notFood', label: "Other/Not Food"}
+        { value: 'Produce', label: 'Produce' },
+        { value: 'Frozen', label: 'Frozen' },
+        { value: 'Refrigerated', label: 'Refrigerated' },
+        { value: 'OtherFood', label: "Other Food"},
+        { value: 'Drugs', label: "Drugs"},
+        { value: 'NotFood', label: "Other/Not Food"}
 
       ]
     }
@@ -44,7 +44,8 @@ export default class GrocInput extends Component {
         section: ''
       })
     }
-    
+
+
     render() {
       const {title, selectedOption} = this.state;
 
@@ -87,22 +88,7 @@ export default class GrocInput extends Component {
               add item
             </button>
 
-            <br />
-            Filter by: 
-            <select 
-            id="section-pick" 
-            name="section-pick"
-            //onChange={e=> this.updateInput("newSection", e.target.value)}
-            >
-            <option value="">Produce</option>
-            <option value="">Refrigerated</option>
-            <option value="">Frozen</option>
-            <option value=''>Pharma</option>
-            <option value='' checked >Other</option>
-            <option value=''>Nonfood</option>
-            </select>
-
-          
+ 
 
           </form>
         </div>
