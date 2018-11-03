@@ -3,25 +3,29 @@ import React, { Component } from 'react';
 import './styles/RecipeApp.css'
 
 class RecipeApp extends Component {
-    constructor(props) {
-      super(props);
-      this.onSave = this.onSave.bind(this);
-      this.onDelete = this.onDelete.bind(this);
-      this.state = {
-        recipes: [
-          {
-            id: 0,
-            title: "Spaghetti",
-            ingredients: ["pasta", "spaghetti sauce"],
-          },
-          {
-            id: 1,
-            title: "PB&J Sandwiches",
-            ingredients: ["Bread", "Peanut Butter", "Jelly"],
-          }
-        ],
-        nextRecipeId: 2     
-      }
+  //the binding and constructor is unnecesary in new versions of React. I commented it out for historical reference
+  
+    //constructor(props) {
+      //super(props);
+      // this.onSave = this.onSave.bind(this);
+      // this.onDelete = this.onDelete.bind(this);
+
+    //}
+
+    state = {
+      recipes: [
+        {
+          id: 0,
+          title: "Spaghetti",
+          ingredients: ["pasta", "spaghetti sauce"],
+        },
+        {
+          id: 1,
+          title: "PB&J Sandwiches",
+          ingredients: ["Bread", "Peanut Butter", "Jelly"],
+        }
+      ],
+      nextRecipeId: 2     
     }
     
  //LocalStorage:
@@ -80,7 +84,7 @@ class RecipeApp extends Component {
 
 
 
-    onSave(recipe) {
+    onSave = (recipe) => {
       this.setState((prevState) => {
         const newRecipe = {...recipe, id: this.state.nextRecipeId};
         return {
@@ -91,7 +95,7 @@ class RecipeApp extends Component {
       });
     }
     
-    onDelete(id) {
+    onDelete = (id) => {
       const recipes = this.state.recipes.filter(r => r.id !== id);
       this.setState({recipes});
     }
@@ -144,29 +148,24 @@ class RecipeInput extends Component {
       onSave() {}
     }
     
-    constructor(props) {
-      super(props);
-      this.state = {
+
+    state = {
         title: '',
         ingredients: [''],
-      };
-      
-      this.handleChange = this.handleChange.bind(this);
-      this.handleNewIngredient = this.handleNewIngredient.bind(this);
-      this.handleChangeIng = this.handleChangeIng.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-    }
+      }  
+
     
-    handleChange(e) {
+    
+    handleChange = (e) =>{
       this.setState({[e.target.name]: e.target.value});
     }
     
-    handleNewIngredient(e) {
+    handleNewIngredient = (e) =>{
       const {ingredients} = this.state;
       this.setState({ingredients: [...ingredients, '']});
     }
     
-    handleChangeIng(e) {
+    handleChangeIng = (e) =>{
       const index = Number(e.target.name.split('-')[1]);
       const ingredients = this.state.ingredients.map((ing, i) => (
         i === index ? e.target.value : ing
@@ -174,7 +173,7 @@ class RecipeInput extends Component {
       this.setState({ingredients});
     }
     
-    handleSubmit(e) {
+    handleSubmit = (e) =>{
       e.preventDefault();
       this.props.onSave({...this.state});
       this.setState({

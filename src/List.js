@@ -4,7 +4,9 @@ import Select from 'react-select';
 
 
 const store = createStore((state={count:0}) =>{ return state; });
+//have not yet fully implimented Redux. Still trying to figure it out.
 
+//this file has more than one component. need to refactor into separate files.
 
 
 console.log(store.getState());
