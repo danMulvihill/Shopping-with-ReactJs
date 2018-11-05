@@ -10,8 +10,8 @@ export default class Recipe extends Component{
             <li key={index}>{ing}</li>
         ))
         return(<div>
-          <button className="delrec" type="button" onClick={() => onDelete(id)}>delete recipe</button>
-            <div>{title}</div>
+          <button className="delrec btn btn-danger" type="button" onClick={() => onDelete(id)}>delete recipe</button>
+            <h3>{title}</h3>
             <ul>{ingredients}</ul>
            
             <hr />

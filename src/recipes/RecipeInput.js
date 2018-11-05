@@ -83,15 +83,15 @@ export default class RecipeInput extends Component {
             <button
               type="button"
               onClick={this.handleNewIngredient}
-              className="buttons"
+              className="btn btn-warning"
             >
               +
             </button>
- 
+            <br />
             <button
               type="submit"
-              className="buttons"
-              style={{alignSelf: 'flex-end', marginRight: 0}}
+              className="btn btn-primary"
+              style={{ffontSize: "1.6rem", marginTop: "40px"}}
             >
               save recipe
             </button>

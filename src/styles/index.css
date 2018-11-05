@@ -1,6 +1,6 @@
 body {
   font-family: "Segoe UI", "Roboto", "Oxygen","Ubuntu", "Droid Sans", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.6rem !important;
   margin: 10px;
 }
 

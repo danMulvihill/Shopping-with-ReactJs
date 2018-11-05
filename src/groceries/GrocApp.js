@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import GrocList from './GrocList.js'
 import GrocInput from './GrocInput'
 
@@ -126,34 +126,31 @@ class ListApp extends Component {
     
     render() {
       // console.log(this.props.upGrocs.length)
-      return (
-        
-        <div className="App">
-
-         <div className="container">
-          
-          
-          <h3>List groceries here:</h3>
-          <GrocInput onSave={this.onSave} /> 
-          
-          Filter by: 
-
-          <select id="filtered-sections" 
-          onChange={e=>this.changeSection(e.target.value)}>
-          <option value="All">All</option>
-          <option value="Produce">Produce</option>
-          <option value="Refrigerated">Refrigerated</option>
-          <option value="Frozen">Frozen</option>
-          <option value="Other Food">Other Food</option>
-          <option value="Drugs">Drugs</option>
-          <option value="Other/Not Food">Other/Not Food</option>
-        </select>
-    
-          
-          <GrocList onDelete={this.onDelete} 
-              grocs={this.state.grocs} filterChoice={this.state.filterChoice} />
-          
-        </div></div>
+      return ( 
+        <div className="grocApp container-fluid">
+            <div className="row justify-content-between">
+                <div className="col-sm-4">
+                    <h3>List groceries here:</h3>
+                    <GrocInput onSave={this.onSave} /> 
+                </div>
+                <div className="col-sm-8">
+                  <h3 style={{margin: "15px"}}>Filter by: 
+                    <select id="filtered-sections" 
+                    onChange={e=>this.changeSection(e.target.value)}>
+                    <option value="All">All</option>
+                    <option value="Produce">Produce</option>
+                    <option value="Refrigerated">Refrigerated</option>
+                    <option value="Frozen">Frozen</option>
+                    <option value="Other Food">Other Food</option>
+                    <option value="Drugs">Drugs</option>
+                    <option value="Other/Not Food">Other/Not Food</option>
+                    </select>
+                  </h3>
+                    <GrocList onDelete={this.onDelete} 
+                      grocs={this.state.grocs} filterChoice={this.state.filterChoice} />
+                  </div>
+              </div>
+        </div>
       );
     }
 

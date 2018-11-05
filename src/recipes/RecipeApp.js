@@ -98,17 +98,19 @@ class RecipeApp extends Component {
       // console.log(this.props.upRecipes.length)
       return (
         
-        <div className="App">
+        <div className="RecipeApp">
 
-         <div className="container">
-          
-          
+         <div className="container-fluid">
+          <div className="row">
+           <div className="col-sm-4">
           <h3>Add a recipe:</h3>
-          
+          <RecipeInput onSave={this.onSave} /> 
+          </div>
+          <div className="col-sm-8">
           <RecipeList onDelete={this.onDelete} 
               recipes={this.state.recipes} />
-              <RecipeInput onSave={this.onSave} /> 
-              
+          </div>
+          </div>
         </div></div>
       );
     }

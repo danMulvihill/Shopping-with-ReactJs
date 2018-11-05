@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux';
 import Select from 'react-select';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const store = createStore((state={count:0}) =>{ return state; });
@@ -110,17 +110,22 @@ class ListApp extends Component {
       // console.log(this.props.upGrocs.length)
       return (
         
-        <div className="App">
+      <div className="App">
 
-         <div className="container">
-          
-          
-          <h3>List groceries here:</h3>
-          <GrocInput onSave={this.onSave} /> 
-          <GrocList onDelete={this.onDelete} 
-              grocs={this.state.grocs} />
-          
-        </div></div>
+          <div className="container">
+            
+            <div className="row">
+              <div className="col-sm-6">
+                <h3>List groceries here:</h3>
+                <GrocInput onSave={this.onSave} /> 
+              </div>
+              <div className="col-sm-6">
+                <GrocList onDelete={this.onDelete} 
+                    grocs={this.state.grocs} />
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
 
