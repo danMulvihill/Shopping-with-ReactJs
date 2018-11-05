@@ -28,6 +28,8 @@ select{
   color: black
 }
 
-.delrec{
-  float:right;
+.recipe-title{
+  display: flex;
+  justify-content: space-between;
 }
+

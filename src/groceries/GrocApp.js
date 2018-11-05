@@ -132,6 +132,7 @@ class ListApp extends Component {
                 <div className="col-sm-4">
                     <h3>List groceries here:</h3>
                     <GrocInput onSave={this.onSave} /> 
+                    <div style={{background: "brown", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
                 </div>
                 <div className="col-sm-8">
                   <h3 style={{margin: "15px"}}>Filter by: 

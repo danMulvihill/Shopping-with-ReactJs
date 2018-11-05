@@ -19,9 +19,12 @@ class RecipeApp extends Component {
           ingredients: ["Bread", "Peanut Butter", "Jelly"],
         }
       ],
-      nextRecipeId: 2     
+      nextRecipeId: 2    
     }
     
+    
+
+
  //LocalStorage:
   componentDidMount() {
     // for all items in state
@@ -108,7 +111,9 @@ class RecipeApp extends Component {
           </div>
           <div className="col-sm-8">
           <RecipeList onDelete={this.onDelete} 
-              recipes={this.state.recipes} />
+              recipes={this.state.recipes}
+             
+               />
           </div>
           </div>
         </div></div>
