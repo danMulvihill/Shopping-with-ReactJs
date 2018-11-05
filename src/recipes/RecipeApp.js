@@ -17,9 +17,14 @@ class RecipeApp extends Component {
           id: 1,
           title: "PB&J Sandwiches",
           ingredients: ["Bread", "Peanut Butter", "Jelly"],
+        },
+        {
+          id: 2,
+          title: "Chocolate Chip Cookies",
+          ingredients: ["Sugar", "Brown Sugar", "Flour", "Eggs", "Butter", "Vanilla Extract", "Chocolate Chips"],
         }
       ],
-      nextRecipeId: 2    
+      nextRecipeId: 3    
     }
     
     
@@ -105,15 +110,16 @@ class RecipeApp extends Component {
 
          <div className="container-fluid">
           <div className="row">
-           <div className="col-sm-4">
-          <h3>Add a recipe:</h3>
-          <RecipeInput onSave={this.onSave} /> 
-          </div>
+           
           <div className="col-sm-8">
           <RecipeList onDelete={this.onDelete} 
               recipes={this.state.recipes}
              
                />
+          </div>
+          <div className="col-sm-4">
+          <h3>Add a recipe:</h3>
+          <RecipeInput onSave={this.onSave} /> 
           </div>
           </div>
         </div></div>

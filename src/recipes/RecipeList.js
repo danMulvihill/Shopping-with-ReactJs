@@ -11,8 +11,7 @@ export default class RecipeList extends Component {
         <Recipe 
         key={r.id} {...r} 
         onDelete={onDelete} 
-        toggleVisibility = { this.props.toggleVisibility }
-        isVisible = { this.props.isVisible }
+      
         />
       ));
       

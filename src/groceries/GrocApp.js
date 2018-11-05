@@ -113,11 +113,11 @@ class ListApp extends Component {
     }
 
     changeSection = (newSection) => {
-      console.log("New Section: "+newSection)
+      //console.log("New Section: "+newSection)
       this.setState({
         filterChoice: newSection
       });
-      console.log("Filter Choice: "+this.state.filterChoice)
+      //console.log("Filter Choice: "+this.state.filterChoice)
       // const grocs = this.state.grocs.filter(groc => groc.selectedOption === newSection);
       //   this.setState({grocs});
       
