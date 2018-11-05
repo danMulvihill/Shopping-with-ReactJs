@@ -131,18 +131,19 @@ class ListApp extends Component {
             <div className="row justify-content-between">
                 <div className="col-sm-4">
                     <h3>List groceries here:</h3>
-                    <GrocInput onSave={this.onSave} /> 
+                    <GrocInput onSave={this.onSave} changeSection={this.changeSection} /> 
                     <div style={{background: "brown", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
                 </div>
                 <div className="col-sm-8">
-                  <h3 style={{margin: "15px"}}>Filter by: 
-                    <select id="filtered-sections" 
+                  <h3 style={{margin: "15px"}}>Filter by: <select id="filtered-sections" 
                     onChange={e=>this.changeSection(e.target.value)}>
                     <option value="All">All</option>
                     <option value="Produce">Produce</option>
                     <option value="Refrigerated">Refrigerated</option>
                     <option value="Frozen">Frozen</option>
+                    <option value="Center Isle Food">Center Isle Food</option>
                     <option value="Other Food">Other Food</option>
+                    <option value="Household items">Household Items</option>
                     <option value="Drugs">Drugs</option>
                     <option value="Other/Not Food">Other/Not Food</option>
                     </select>

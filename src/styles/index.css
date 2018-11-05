@@ -2,6 +2,7 @@ body {
   font-family: "Segoe UI", "Roboto", "Oxygen","Ubuntu", "Droid Sans", sans-serif;
   font-size: 1.6rem !important;
   margin: 10px;
+  line-height: 1.3em !important;
 }
 
 
@@ -475,7 +476,7 @@ justify-content: space-between;
 }
 
 #recipe-section-input{
-  width: 150px;
+  width: 90%;
 }
 
 @media (min-width: 700px){

@@ -29,7 +29,9 @@ export default class GrocInput extends Component {
         { value: 'Produce', label: 'Produce' },
         { value: 'Frozen', label: 'Frozen' },
         { value: 'Refrigerated', label: 'Refrigerated' },
+        { value: 'CenterIsle', label: 'Center Isle Food'},
         { value: 'OtherFood', label: "Other Food"},
+        { value: 'Household', label: "Household items"},
         { value: 'Drugs', label: "Drugs"},
         { value: 'NotFood', label: "Other/Not Food"}
 
@@ -38,11 +40,13 @@ export default class GrocInput extends Component {
     
     handleSubmit = (e) => {
       e.preventDefault();
+      
       this.props.onSave({...this.state});
       this.setState({
         title: '',
         section: ''
       })
+      this.props.changeSection("All")
     }
 
 
@@ -87,8 +91,8 @@ export default class GrocInput extends Component {
             >
               add item
             </button>
+            
 
- 
 
           </form>
         </div>
