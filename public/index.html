@@ -19,5 +19,19 @@
     <!--
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCRbfCfmsxnRPnouJLQhrotO0LdwVQQ8-Q",
+    authDomain: "react-shopping-buddy.firebaseapp.com",
+    databaseURL: "https://react-shopping-buddy.firebaseio.com",
+    projectId: "react-shopping-buddy",
+    storageBucket: "react-shopping-buddy.appspot.com",
+    messagingSenderId: "360193132126"
+  };
+  firebase.initializeApp(config);
+</script>
   </body>
 </html>
