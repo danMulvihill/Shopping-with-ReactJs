@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GrocList from './GrocList.js'
 import GrocInput from './GrocInput'
+import uuid from 'uuid';
 
 
 const store = createStore((state={count:0}) =>{ return state; });
@@ -31,7 +32,7 @@ class ListApp extends Component {
             section: "Produce"
           }
         ],
-        nextGrocId: 2,
+        nextGrocId: uuid(),
         filterChoice: 'All'     
       }
     }

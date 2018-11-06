@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import '../styles/RecipeApp.css'
 import RecipeList from './RecipeList'
 import RecipeInput from './RecipeInput'
+import uuid from 'uuid';
 
 class RecipeApp extends Component {
  
@@ -24,7 +25,7 @@ class RecipeApp extends Component {
           ingredients: ["Sugar", "Brown Sugar", "Flour", "Eggs", "Butter", "Vanilla Extract", "Chocolate Chips"],
         }
       ],
-      nextRecipeId: 3    
+      nextRecipeId: uuid()   
     }
     
     
