@@ -24,7 +24,7 @@ const NotFoundPage = () =>(
 
 
 const routes = (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
     <div>
      <Navbar />
      <hr />
