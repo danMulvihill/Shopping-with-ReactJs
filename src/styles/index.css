@@ -68,24 +68,7 @@ padding: 0 1.6rem;
 
 /* Header */
 
-.header {
-text-align: center;
-background: red;
-color:white;
-padding: 1px 0;
-margin-bottom: 1.1rem;
-}
 
-.header__title {
-font-size: 3.2rem;
-margin-bottom: .4rem;
-}
-
-.header__subtitle {
-/* color: #777; */
-font-size: 1.6rem;
-font-weight: 300;
-}
 
 /* Actions Bar */
 
@@ -507,6 +490,10 @@ justify-content: space-between;
       max-width: 1200px;
       margin: 0 auto;
       }
+
+  header{
+    padding: 20px;
+  }
 
   }
   
