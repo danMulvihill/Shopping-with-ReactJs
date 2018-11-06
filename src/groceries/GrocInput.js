@@ -67,7 +67,9 @@ export default class GrocInput extends Component {
                 type='text'
                 value={title}
                 autoComplete="off"
-                onChange={this.handleChange}/>
+                onChange={this.handleChange}
+                required
+                />
               </div>
               <div className='recipe-form-line'>
                 <label htmlFor='recipe-title-input'> section:</label>

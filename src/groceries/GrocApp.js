@@ -97,7 +97,7 @@ class ListApp extends Component {
         return {
           nextGrocId: prevState.nextGrocId + 1,
           grocs: [...this.state.grocs, newGroc],
-         
+          filterChoice: "All"
         }
       });
     }

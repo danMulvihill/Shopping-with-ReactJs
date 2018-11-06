@@ -76,7 +76,9 @@ export default class RecipeInput extends Component {
                 type='text'
                 value={title}
                 autoComplete="off"
-                onChange={this.handleChange}/>
+                onChange={this.handleChange}
+                required
+                />
             </div>
             List ingredents:
             {inputs}
