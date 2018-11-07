@@ -23,7 +23,17 @@ class RecipeApp extends Component {
           id: 2,
           title: "Chocolate Chip Cookies",
           ingredients: ["Sugar", "Brown Sugar", "Flour", "Eggs", "Butter", "Vanilla Extract", "Chocolate Chips"],
+        },
+        {
+          id: 3,
+          title: "Keema Aloo",
+          ingredients: ["Ground Beef","Ginger root", "Coriander", "Cilantro", "Cumin", "Tumeric", "Can diced tomatoes", "Potatoes", "Peas","Salt", "Garam masala"]
+        },{
+          id: 4,
+          title: "Caeser Salad",
+          ingredients: ["Romaine Lettuce", "Parmasean Cheese", "Caeser Dressing", "Croutons"]
         }
+      
       ],
       nextRecipeId: uuid()   
     }
