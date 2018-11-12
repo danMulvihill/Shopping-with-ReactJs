@@ -3,16 +3,17 @@ import React, { Component } from 'react';
 
 export default class Groc extends Component{
     render(){
-        const {title, id, section, selectedOption, onDelete, filterChoice} = this.props;
+        const {quantity, title, id, section, selectedOption, onDelete, filterChoice} = this.props;
         //const {value} = this.props.selectedOption;
         console.log(filterChoice, "=", selectedOption, section)
         if (filterChoice === "All") {
             return(<li key={id} className="list-item">
             <div className="list-item">
             <div className="list-item__container">
-              <div>
-                {title}
-              </div>
+             <div>
+                <div>{quantity} {title}</div>
+             </div>
+
               <div>
                 <span className="section-display">{section||selectedOption}</span>
                 <button type="button"
@@ -29,6 +30,7 @@ export default class Groc extends Component{
                 <div className="list-item">
                 <div className="list-item__container">
                   <div>
+                    {quantity}
                     {title}
                   </div>
                   <div>

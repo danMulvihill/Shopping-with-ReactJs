@@ -24,12 +24,14 @@ class ListApp extends Component {
           {
             id: 0,
             title: "Eggs",
-            section: "Refrigerated"
+            section: "Refrigerated", 
+            quantity: 1
           },
           {
             id: 1,
             title: "Bananas",
-            section: "Produce"
+            section: "Produce",
+            quantity: 2
           }
         ],
         nextGrocId: uuid(),
@@ -146,6 +148,7 @@ class ListApp extends Component {
                     <option value="Other Food">Other Food</option>
                     <option value="Household items">Household Items</option>
                     <option value="Drugs">Drugs</option>
+                    <option value='Bath/Hygiene'>Bath/Hygiene</option>
                     <option value="Other/Not Food">Other/Not Food</option>
                     </select>
                   </h3>
