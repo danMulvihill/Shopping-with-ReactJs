@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { createStore } from 'redux';
+//import { createStore } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GrocList from './GrocList.js'
 import GrocInput from './GrocInput'
 import uuid from 'uuid';
 
 
-const store = createStore((state={count:0}) =>{ return state; });
+//const store = createStore((state={count:0}) =>{ return state; });
 //have not yet fully implimented Redux. Still trying to figure it out.
-console.log(store.getState());
+//console.log(store.getState());
 
 class ListApp extends Component {
     constructor(props) {
@@ -109,6 +109,11 @@ class ListApp extends Component {
       }
     });
   }
+
+  onAtoZ = () => {
+    console.log(this.state.grocs)
+  }
+
   
   onDelete = (id) => {
     const grocs = this.state.grocs.filter(groc => groc.id !== id);
@@ -117,7 +122,7 @@ class ListApp extends Component {
 
 
   handleChangeFilt = (e) => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
     //this.props.onChange(e.target.value);
   }
 
@@ -129,7 +134,6 @@ class ListApp extends Component {
   }
   
   render() {
-    console.log("STATE: "+this.state.sections)
     const optionMenu = this.state.sections.map((optionItem)=>{
       return <option value={optionItem.value}>{optionItem.label}</option>
     })
@@ -151,6 +155,7 @@ class ListApp extends Component {
                     {optionMenu}
 
                   </select>
+                  <button onClick={this.onAtoZ} >A - Z </button>
                 </h3>
                   <GrocList onDelete={this.onDelete} 
                     grocs={this.state.grocs} 

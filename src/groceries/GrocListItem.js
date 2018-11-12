@@ -5,7 +5,7 @@ export default class Groc extends Component{
     render(){
         const {quantity, title, id, section, selectedOption, onDelete, filterChoice} = this.props;
         //const {value} = this.props.selectedOption;
-        console.log(filterChoice, "=", selectedOption, section)
+        // console.log(filterChoice, "=", selectedOption, section)
         if (filterChoice === "All") {
             return(<li key={id} className="list-item">
             <div className="list-item">
@@ -29,10 +29,7 @@ export default class Groc extends Component{
                 return (<li key={id} className="list-item">
                 <div className="list-item">
                 <div className="list-item__container">
-                  <div>
-                    {quantity}
-                    {title}
-                  </div>
+                  <div>{quantity} {title}</div>
                   <div>
                     <span className="section-display">{section||selectedOption}</span>
                     <button type="button"

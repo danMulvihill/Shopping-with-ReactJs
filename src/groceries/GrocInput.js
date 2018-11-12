@@ -42,8 +42,7 @@ export default class GrocInput extends Component {
 
 
     render() {
-      const {title, quantity, selectedOption} = this.state;
-      console.log("PROPS: "+this.props.sections)
+      const {title, quantity} = this.state;
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
