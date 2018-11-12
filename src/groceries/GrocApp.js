@@ -8,10 +8,6 @@ import uuid from 'uuid';
 
 const store = createStore((state={count:0}) =>{ return state; });
 //have not yet fully implimented Redux. Still trying to figure it out.
-
-//this file has more than one component. need to refactor into separate files.
-
-
 console.log(store.getState());
 
 class ListApp extends Component {
@@ -35,6 +31,19 @@ class ListApp extends Component {
           }
         ],
         nextGrocId: uuid(),
+        sections: [
+          { value: 'All', label: 'All'},
+          { value: 'Produce', label: 'Produce' },
+          { value: 'Frozen', label: 'Frozen' },
+          { value: 'Refrigerated', label: 'Refrigerated' },
+          { value: 'CenterIsle', label: 'Center Isle Food'},
+          { value: 'OtherFood', label: "Other Food"},
+          { value: 'Household', label: "Household items"},
+          { value: 'Drugs', label: "Drugs"},
+          { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
+          { value: 'NotFood', label: "Other/Not Food"}
+  
+        ],
         filterChoice: 'All'     
       }
     }
@@ -47,7 +56,6 @@ class ListApp extends Component {
         if (localStorage.hasOwnProperty(key)) {
           // get the key's value from localStorage
           let value = localStorage.getItem(key);
-  
           // parse the localStorage string and setState
           try {
             value = JSON.parse(value);
@@ -58,7 +66,6 @@ class ListApp extends Component {
           }
         }
       }
-
     // add event listener to save state to localStorage
     // when user leaves/refreshes the page
     window.addEventListener(
@@ -72,7 +79,6 @@ class ListApp extends Component {
       "beforeunload",
       this.saveStateToLocalStorage.bind(this)
     );
-
     // saves if component has a chance to unmount
     this.saveStateToLocalStorage();
   }
@@ -92,73 +98,67 @@ class ListApp extends Component {
 
   }
 
+  onSave = (grocs) => {
+    this.setState((prevState) => {
+      const newGroc = {...grocs, id: this.state.nextGrocId};
+      return {
+        nextGrocId: prevState.nextGrocId + 1,
+        grocs: [...this.state.grocs, newGroc],
+        filterChoice: "All"
+      }
+    });
+  }
+  
+  onDelete = (id) => {
+    const grocs = this.state.grocs.filter(groc => groc.id !== id);
+    this.setState({grocs});
+  }
 
-    onSave = (grocs) => {
-      this.setState((prevState) => {
-        const newGroc = {...grocs, id: this.state.nextGrocId};
-        return {
-          nextGrocId: prevState.nextGrocId + 1,
-          grocs: [...this.state.grocs, newGroc],
-          filterChoice: "All"
-        }
-      });
-    }
-    
-    onDelete = (id) => {
-      const grocs = this.state.grocs.filter(groc => groc.id !== id);
-      this.setState({grocs});
-    }
 
+  handleChangeFilt = (e) => {
+    console.log(e.target.value)
+    //this.props.onChange(e.target.value);
+  }
 
-    handleChangeFilt = (e) => {
-      console.log(e.target.value)
-      //this.props.onChange(e.target.value);
-    }
+  changeSection = (newSection) => {
+    this.setState({
+      filterChoice: newSection
+    });
 
-    changeSection = (newSection) => {
-      //console.log("New Section: "+newSection)
-      this.setState({
-        filterChoice: newSection
-      });
-      //console.log("Filter Choice: "+this.state.filterChoice)
-      // const grocs = this.state.grocs.filter(groc => groc.selectedOption === newSection);
-      //   this.setState({grocs});
-      
-    }
-    
-    
-    render() {
-      // console.log(this.props.upGrocs.length)
-      return ( 
-        <div className="grocApp container-fluid">
-            <div className="row justify-content-between">
-                <div className="col-sm-4">
-                    <h3>List groceries here:</h3>
-                    <GrocInput onSave={this.onSave} changeSection={this.changeSection} /> 
-                    <div style={{background: "brown", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
-                </div>
-                <div className="col-sm-8">
-                  <h3 style={{margin: "15px"}}>Filter by: <select id="filtered-sections" 
-                    onChange={e=>this.changeSection(e.target.value)}>
-                    <option value="All">All</option>
-                    <option value="Produce">Produce</option>
-                    <option value="Refrigerated">Refrigerated</option>
-                    <option value="Frozen">Frozen</option>
-                    <option value="Center Isle Food">Center Isle Food</option>
-                    <option value="Other Food">Other Food</option>
-                    <option value="Household items">Household Items</option>
-                    <option value="Drugs">Drugs</option>
-                    <option value='Bath/Hygiene'>Bath/Hygiene</option>
-                    <option value="Other/Not Food">Other/Not Food</option>
-                    </select>
-                  </h3>
-                    <GrocList onDelete={this.onDelete} 
-                      grocs={this.state.grocs} filterChoice={this.state.filterChoice} />
-                  </div>
+  }
+  
+  render() {
+    console.log("STATE: "+this.state.sections)
+    const optionMenu = this.state.sections.map((optionItem)=>{
+      return <option value={optionItem.value}>{optionItem.label}</option>
+    })
+    return ( 
+      <div className="grocApp container-fluid">
+          <div className="row justify-content-between">
+              <div className="col-sm-4">
+                  <h3>List groceries here:</h3>
+                  <GrocInput 
+                    onSave={this.onSave} 
+                    changeSection={this.changeSection} 
+                    sections={this.state.sections}
+                    /> 
+                  <div style={{background: "brown", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
               </div>
-        </div>
-      );
-    }
+              <div className="col-sm-8">
+                <h3 style={{margin: "15px"}}>Filter by: <select id="filtered-sections" 
+                  onChange={e=>this.changeSection(e.target.value)}>
+                    {optionMenu}
+
+                  </select>
+                </h3>
+                  <GrocList onDelete={this.onDelete} 
+                    grocs={this.state.grocs} 
+                    filterChoice={this.state.filterChoice} />
+                </div>
+            </div>
+      </div>
+    );
+  }
 
   }
   

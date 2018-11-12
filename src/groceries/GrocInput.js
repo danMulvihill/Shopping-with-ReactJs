@@ -25,18 +25,7 @@ export default class GrocInput extends Component {
       }
 
     getOptions =() => {
-      return [
-        { value: 'Produce', label: 'Produce' },
-        { value: 'Frozen', label: 'Frozen' },
-        { value: 'Refrigerated', label: 'Refrigerated' },
-        { value: 'CenterIsle', label: 'Center Isle Food'},
-        { value: 'OtherFood', label: "Other Food"},
-        { value: 'Household', label: "Household items"},
-        { value: 'Drugs', label: "Drugs"},
-        { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
-        { value: 'NotFood', label: "Other/Not Food"}
-
-      ]
+      return this.props.sections
     }
     
     handleSubmit = (e) => {
@@ -54,7 +43,7 @@ export default class GrocInput extends Component {
 
     render() {
       const {title, quantity, selectedOption} = this.state;
-
+      console.log("PROPS: "+this.props.sections)
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
