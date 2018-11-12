@@ -36,8 +36,9 @@ class ListApp extends Component {
           { value: 'Produce', label: 'Produce' },
           { value: 'Frozen', label: 'Frozen' },
           { value: 'Refrigerated', label: 'Refrigerated' },
-          { value: 'CenterIsle', label: 'Center Isle Food'},
-          { value: 'OtherFood', label: "Other Food"},
+          { value: 'Center Isle', label: 'Center Isle Food'},
+          { value: 'Other Food', label: "Other Food"},
+          { value: 'Front of store', label: "Front of store" },
           { value: 'Household', label: "Household items"},
           { value: 'Drugs', label: "Drugs"},
           { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
@@ -142,7 +143,7 @@ class ListApp extends Component {
                     changeSection={this.changeSection} 
                     sections={this.state.sections}
                     /> 
-                  <div style={{background: "brown", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
+                  <div style={{background: "gray", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
               </div>
               <div className="col-sm-8">
                 <h3 style={{margin: "15px"}}>Filter by: <select id="filtered-sections" 

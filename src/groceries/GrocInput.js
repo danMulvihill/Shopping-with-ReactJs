@@ -92,7 +92,7 @@ export default class GrocInput extends Component {
 
             <button
               type="submit"
-              className="buttons"
+              className="buttons btn btn-primary btn-block"
               style={{alignSelf: 'flex-end', marginRight: 0}}
             >
               add item
