@@ -29,9 +29,11 @@ export default class Recipe extends Component{
         ))
         return(<div className="recipes">
             <div className="recipe-title">
-            <h3>{title} <button className="btn btn-info" onClick = { this.toggleVisibility }>{showHide} ingredients</button>
-            </h3>
-            <button className="delrec btn btn-danger" type="button" onClick={() => onDelete(id)}>delete recipe</button>
+                <h3>{title} </h3>
+                <div>
+                    <button className="btn btn-info" onClick = { this.toggleVisibility }>{showHide} ingredients</button>
+                    <button className="delrec btn btn-danger" type="button" onClick={() => onDelete(id)}>X</button>
+                </div>
             </div>
             <ul style={toggleStyle}>{ingredients}</ul>
            

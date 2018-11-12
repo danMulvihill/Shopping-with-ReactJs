@@ -109,8 +109,12 @@ class RecipeApp extends Component {
     }
     
     onDelete = (id) => {
-      const recipes = this.state.recipes.filter(r => r.id !== id);
-      this.setState({recipes});
+      const x = window.confirm("Are you sure you want to delete this recipe?");
+      if (x){
+        const recipes = this.state.recipes.filter(r => r.id !== id);
+        this.setState({recipes});
+      }
+
     }
     
     render() {
