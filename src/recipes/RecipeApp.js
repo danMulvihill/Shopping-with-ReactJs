@@ -12,6 +12,7 @@ class RecipeApp extends Component {
         {
           id: 0,
           title: "Spaghetti",
+          details: "Boil water, add pasta, simmer for 8 minutes, drain and serve with sauce",
           ingredients: ["pasta", "spaghetti sauce"],
         },
         {

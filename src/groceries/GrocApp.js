@@ -19,13 +19,13 @@ class ListApp extends Component {
         grocs: [
           {
             id: 0,
-            title: "Eggs",
+            item: "Eggs",
             section: "Refrigerated", 
             quantity: 1
           },
           {
             id: 1,
-            title: "Bananas",
+            item: "Bananas",
             section: "Produce",
             quantity: 2
           }

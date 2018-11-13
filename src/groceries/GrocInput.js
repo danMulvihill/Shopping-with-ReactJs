@@ -10,7 +10,7 @@ export default class GrocInput extends Component {
     }
     
     state = {
-      title: ""
+      item: ""
     };
     
     handleChange = (e) => {
@@ -33,7 +33,7 @@ export default class GrocInput extends Component {
       
       this.props.onSave({...this.state});
       this.setState({
-        title: '',
+        item: '',
         quantity: 1,
         section: ''
       })
@@ -42,20 +42,20 @@ export default class GrocInput extends Component {
 
 
     render() {
-      const {title, quantity} = this.state;
+      const {item, quantity} = this.state;
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
 
             <div className='recipe-form-line'>
-              <label htmlFor='recipe-title-input'>item:</label>
+              <label htmlFor='recipe-item-input'>item:</label>
               <br />
               <input
-                id='recipe-title-input'
-                key='title'
-                name='title'
+                id='recipe-item-input'
+                key='item'
+                name='item'
                 type='text'
-                value={title}
+                value={item}
                 autoComplete="on"
                 onChange={this.handleChange}
                 required
@@ -75,7 +75,7 @@ export default class GrocInput extends Component {
                   />
               </div>
               <div className='recipe-form-line'>
-                <label htmlFor='recipe-title-input'> section:</label>
+                <label htmlFor='recipe-item-input'> section:</label>
                 
                 <Select 
                   id='recipe-section-input'
