@@ -36,13 +36,13 @@ class ListApp extends Component {
           { value: 'Produce', label: 'Produce' },
           { value: 'Frozen', label: 'Frozen' },
           { value: 'Refrigerated', label: 'Refrigerated' },
-          { value: 'Center Isle', label: 'Center Isle Food'},
+          { value: 'Center Isle Food', label: 'Center Isle Food'},
           { value: 'Other Food', label: "Other Food"},
           { value: 'Front of store', label: "Front of store" },
           { value: 'Household', label: "Household items"},
           { value: 'Drugs', label: "Drugs"},
           { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
-          { value: 'NotFood', label: "Other/Not Food"}
+          { value: 'Other/Not Food', label: "Other/Not Food"}
   
         ],
         filterChoice: 'All'     
