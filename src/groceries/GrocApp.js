@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GrocList from './GrocList.js'
 import GrocInput from './GrocInput'
-import uuid from 'uuid';
+//import uuid from 'uuid';
 
+import uniqueId  from 'lodash';
 
 //const store = createStore((state={count:0}) =>{ return state; });
 //have not yet fully implimented Redux. Still trying to figure it out.
@@ -16,33 +17,20 @@ class ListApp extends Component {
       //this.onSave = this.onSave.bind(this);
       //this.onDelete = this.onDelete.bind(this);
       this.state = {
-        grocs: [
-          {
-            id: 0,
-            item: "Eggs",
-            section: "Refrigerated", 
-            quantity: 1
-          },
-          {
-            id: 1,
-            item: "Bananas",
-            section: "Produce",
-            quantity: 2
-          }
-        ],
-        nextGrocId: uuid(),
+        grocs: [],
+        nextGrocId: uniqueId(),
         sections: [
-          { value: 'All', label: 'All'},
-          { value: 'Produce', label: 'Produce' },
-          { value: 'Frozen', label: 'Frozen' },
-          { value: 'Refrigerated', label: 'Refrigerated' },
-          { value: 'Center Isle Food', label: 'Center Isle Food'},
-          { value: 'Other Food', label: "Other Food"},
-          { value: 'Front of store', label: "Front of store" },
-          { value: 'Household', label: "Household items"},
-          { value: 'Drugs', label: "Drugs"},
-          { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
-          { value: 'Other/Not Food', label: "Other/Not Food"}
+          { value: 'All'},
+          { value: 'Produce' },
+          { value: 'Frozen' },
+          { value: 'Refrigerated' },
+          { value: 'Center Isle Food'},
+          { value: 'Other Food'},
+          { value: 'Front of store'},
+          { value: 'Household'},
+          { value: 'Drugs'},
+          { value: 'Bath/Hygiene'},
+          { value: 'Other/Not Food'}
   
         ],
         filterChoice: 'All'     
@@ -135,7 +123,7 @@ class ListApp extends Component {
   
   render() {
     const optionMenu = this.state.sections.map((optionItem)=>{
-      return <option value={optionItem.value}>{optionItem.label}</option>
+      return <option value={optionItem.value}>{optionItem.value}</option>
     })
     return ( 
       <div className="grocApp container-fluid">

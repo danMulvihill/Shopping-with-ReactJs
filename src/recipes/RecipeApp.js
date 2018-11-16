@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../styles/RecipeApp.css'
 import RecipeList from './RecipeList'
 import RecipeInput from './RecipeInput'
-import uuid from 'uuid';
+import uniqueId  from 'lodash';
 
 class RecipeApp extends Component {
  
@@ -36,7 +36,7 @@ class RecipeApp extends Component {
         }
       
       ],
-      nextRecipeId: uuid()   
+      nextRecipeId: uniqueId()
     }
     
     

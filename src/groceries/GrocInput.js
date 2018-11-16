@@ -19,7 +19,7 @@ export default class GrocInput extends Component {
 
     handleChangeSec = (selectedOption) => {
         //this.setState({[e.target.name]: e.target.value});
-        this.setState({selectedOption: selectedOption.label});
+        this.setState({selectedOption: selectedOption.value});
         console.log(`Option picked: `, selectedOption.value)
         
       }
