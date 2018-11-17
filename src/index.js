@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 //import 'bootstrap/dist/css/bootstrap.css'
 import './styles/index.css';
@@ -22,26 +22,31 @@ const NotFoundPage = () =>(
     </div>
 )
 
+class App extends Component {
+    render(){
+        return(
+            <BrowserRouter>
+            <div>
+             <Navbar />
+             <hr />
+             <Switch>
+                <Route path="/about" component={About}  exact={true}/>
+                <Route path="/recipes" component={RecipeApp} />
+                <Route path="/groceries" component={List} />
+                <Route path="/list" component={List} />
+                <Route component={NotFoundPage} />
+              </Switch>
+              </div>
+            </BrowserRouter>
+         )
+    }
+}
 
- const routes = (
-    <BrowserRouter>
-    <div>
-     <Navbar />
-     <hr />
-     <Switch>
-        <Route path="/about" component={About}  exact={true}/>
-        <Route path="/recipes" component={RecipeApp} />
-        <Route path="/groceries" component={List} />
-        <Route path="/list" component={List} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      </div>
-    </BrowserRouter>
- )
 
 
 
-ReactDOM.render(routes, document.querySelector('#root'));
+
+ReactDOM.render(<App />, document.querySelector('#root'));
 
 
 // If you want your app to work offline and load faster, you can change

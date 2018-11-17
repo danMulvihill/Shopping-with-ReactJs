@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GrocList from './GrocList.js'
 import GrocInput from './GrocInput'
-//import uuid from 'uuid';
-
 import uniqueId  from 'lodash';
 
 //const store = createStore((state={count:0}) =>{ return state; });
@@ -20,17 +18,17 @@ class ListApp extends Component {
         grocs: [],
         nextGrocId: uniqueId(),
         sections: [
-          { value: 'All'},
-          { value: 'Produce' },
-          { value: 'Frozen' },
-          { value: 'Refrigerated' },
-          { value: 'Center Isle Food'},
-          { value: 'Other Food'},
-          { value: 'Front of store'},
-          { value: 'Household'},
-          { value: 'Drugs'},
-          { value: 'Bath/Hygiene'},
-          { value: 'Other/Not Food'}
+          { value: 'All', label: 'All', },
+          { value: 'Produce', label: "Produce" },
+          { value: 'Frozen', label: "Frozen"},
+          { value: 'Refrigerated', label: "Refrgerated" },
+          { value: 'Center Isle Food', label: 'Center Isle Food'},
+          { value: 'Other Food', label: 'Other Food'},
+          { value: 'Front of store', label: 'Front of store'},
+          { value: 'Household', label: 'Household'},
+          { value: 'Drugs', label: 'Drugs'},
+          { value: 'Bath/Hygiene', label: 'Bath/Hygiene'},
+          { value: 'Other/Not Food', label: 'Other/Not Food'}
   
         ],
         filterChoice: 'All'     
@@ -122,9 +120,9 @@ class ListApp extends Component {
   }
   
   render() {
-    const optionMenu = this.state.sections.map((optionItem)=>{
-      return <option value={optionItem.value}>{optionItem.value}</option>
-    })
+    // const optionMenu = this.state.sections.map((optionItem)=>{
+    //   return <option value={optionItem.value}>{optionItem.value}</option>
+    // })
     return ( 
       <div className="grocApp container-fluid">
           <div className="row justify-content-between">
@@ -138,9 +136,13 @@ class ListApp extends Component {
                   <div style={{background: "gray", color: "white", textAlign: "center", padding: "5px"}}>{this.state.grocs.length} items on list</div>
               </div>
               <div className="col-sm-8">
-                <h3 style={{margin: "15px"}}>Filter by: <select id="filtered-sections" 
-                  onChange={e=>this.changeSection(e.target.value)}>
-                    {optionMenu}
+                <h3 style={{margin: "15px"}}>
+                Filter by: 
+                  <select id="filtered-sections" 
+                    onChange={e=>this.changeSection(e.target.value)}>
+                      {this.state.sections.map((optionItem)=>{
+                        return <option value={optionItem.value}>{optionItem.value}</option>
+                      })}
 
                   </select>
                   <button onClick={this.onAtoZ} >A - Z </button>

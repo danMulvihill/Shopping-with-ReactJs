@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import './styles/Navbar.css'
 
@@ -22,7 +22,7 @@ export class Navbar extends Component {
   render() {
     return (
       <header>
-        <h2><a href="/">Shopping Buddy</a></h2>
+        <h2><Link to="/">Shopping Buddy</Link></h2>
         <nav>
             <li><NavLink to="/about" activeClassName="is-active">About this site</NavLink></li>
             

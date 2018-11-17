@@ -10,7 +10,9 @@ export default class GrocInput extends Component {
     }
     
     state = {
-      item: ""
+      item: "",
+      quantity: 1,
+        section: ''
     };
     
     handleChange = (e) => {
@@ -20,12 +22,16 @@ export default class GrocInput extends Component {
     handleChangeSec = (selectedOption) => {
         //this.setState({[e.target.name]: e.target.value});
         this.setState({selectedOption: selectedOption.value});
-        console.log(`Option picked: `, selectedOption.value)
+        console.log(`Option picked: `, selectedOption)
         
       }
 
     getOptions =() => {
-      return this.props.sections
+      console.log(this.props.sections)
+      return [
+        ...this.props.sections,
+
+      ]
     }
     
     handleSubmit = (e) => {
@@ -42,7 +48,7 @@ export default class GrocInput extends Component {
 
 
     render() {
-      const {item, quantity} = this.state;
+      const {item, quantity, selectedOption, section } = this.state;
       return (
         <div className="recipe-form-container">
           <form className='recipe-form' onSubmit={this.handleSubmit}>
@@ -82,10 +88,15 @@ export default class GrocInput extends Component {
                   key='section'
                   name='section'
                   autoComplete="on"
-                  //value={selectedOption}
+                  value={selectedOption}
                   onChange={this.handleChangeSec}
                   options={ this.getOptions() }
                 />
+
+
+
+         
+
             </div>
 
 
@@ -105,4 +116,14 @@ export default class GrocInput extends Component {
     }
   }
   
-  
+  /*
+
+  <select id="recipe-section-input" 
+  key='section1'
+  name='section1'
+  onChange={this.handleChangeSec}>
+  {this.props.sections.map((optionItem)=>{
+    return <option value={optionItem.value}>{optionItem.value}</option>
+  })}
+     </select>
+*/
