@@ -7,10 +7,13 @@ export default class RecipeList extends Component {
     render() {
       console.log("list test:"+this.props.upRecipes)
       const {onDelete} = this.props;
-      const recipes = this.props.recipes.map((recipe,index) => (
+      const recipes = this.props.recipes.map((recipe) => (
         <Recipe 
           key={recipe.id} 
-          {...recipe} 
+          //{...recipe}
+          title ={recipe.title}
+          details = {recipe.details}
+          ingredients = {recipe.ingredients} 
           onDelete={onDelete} 
       
         />

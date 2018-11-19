@@ -23,7 +23,7 @@ export default class Recipe extends Component{
         }
         const showHide = isVisible ? "Hide" : "Show" ;
 
-        const {title, id, onDelete} = this.props;
+        const {title, id, details, onDelete} = this.props;
         const ingredients = this.props.ingredients.map((ing,index) => ( 
             <li key={index}>{ing}</li>
         ))
@@ -35,7 +35,11 @@ export default class Recipe extends Component{
                     <button className="delrec btn btn-danger" type="button" onClick={() => onDelete(id)}>X</button>
                 </div>
             </div>
-            <ul style={toggleStyle}>{ingredients}</ul>
+            <div  style={toggleStyle}>
+                    <p style={{fontSize: "0.8em"}}>{details}</p>
+                <ul>{ingredients}</ul>
+            </div>
+            
            
             <hr />
         </div>)

@@ -10,6 +10,7 @@ export default class RecipeInput extends Component {
 
     state = {
         title: '',
+        details: '',
         ingredients: [''],
       }  
 
@@ -37,12 +38,13 @@ export default class RecipeInput extends Component {
       this.props.onSave({...this.state});
       this.setState({
         title: '',
+        details: '',
         ingredients: [''],
       })
     }
     
     render() {
-      const {title, ingredients} = this.state;
+      const {title, details, ingredients} = this.state;
       //const {onClose} = this.props;
       let inputs = ingredients.map((ing, i) => (
         <div
@@ -80,6 +82,22 @@ export default class RecipeInput extends Component {
                 required
                 />
             </div>
+
+            <div className='recipe-form-line'>
+            <label htmlFor='recipe-details-input'>details (instructions):</label>
+            <br />
+            <textarea
+              id='recipe-details-input'
+              key='details'
+              name='details'
+              
+              value={details}
+              autoComplete="off"
+              onChange={this.handleChange}
+              
+              />
+          </div>
+
             List ingredents:
             {inputs}
             <button
